@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Enku Hotel & Suites",
+    "slug": "enku-hotel-guest",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#004758"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.enku.hotel.guest"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#004758"
+      },
+      "package": "com.enku.hotel.guest"
+    },
+    "themeColor": "#0ea5a4"
+  }
+}
