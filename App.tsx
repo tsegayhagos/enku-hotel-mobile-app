@@ -24,26 +24,32 @@ export default function App() {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 1,
-            borderBottomColor: COLORS.border,
+            borderBottomColor: 'rgba(212, 175, 55, 0.2)',
           },
           headerTitleStyle: {
             color: COLORS.text,
-            fontWeight: '800',
-            fontSize: 16,
+            fontWeight: '900',
+            fontSize: 16.5,
+            letterSpacing: -0.3,
           },
           tabBarStyle: {
             backgroundColor: COLORS.surface,
-            borderTopColor: COLORS.border,
+            borderTopColor: 'rgba(255, 255, 255, 0.08)',
             borderTopWidth: 1,
-            height: 60,
-            paddingBottom: 8,
-            paddingTop: 6,
+            height: 64,
+            paddingBottom: 10,
+            paddingTop: 8,
+            shadowColor: '#000',
+            shadowOpacity: 0.35,
+            shadowRadius: 10,
+            elevation: 8,
           },
-          tabBarActiveTintColor: COLORS.primaryLight,
+          tabBarActiveTintColor: COLORS.gold,
           tabBarInactiveTintColor: COLORS.textMuted,
           tabBarLabelStyle: {
-            fontSize: 10,
+            fontSize: 10.5,
             fontWeight: '700',
+            marginTop: 2,
           },
         }}
       >
@@ -51,27 +57,33 @@ export default function App() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerTitle: 'Grand Enku Resort',
+            headerTitle: 'Grand Enku Resort & Spa',
             tabBarLabel: 'መነሻ',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 20 }}>🏨</Text>,
+            tabBarIcon: ({ focused }) => (
+              <Text style={{ fontSize: 20, transform: [{ scale: focused ? 1.15 : 1 }] }}>🏨</Text>
+            ),
           }}
         />
         <Tab.Screen
           name="Rooms"
           component={RoomsCatalogScreen}
           options={{
-            headerTitle: 'የክፍሎች ዝርዝር (Rooms)',
+            headerTitle: 'የክፍሎች ዝርዝር (Suites & Rooms)',
             tabBarLabel: 'ክፍሎች',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 20 }}>🛏️</Text>,
+            tabBarIcon: ({ focused }) => (
+              <Text style={{ fontSize: 20, transform: [{ scale: focused ? 1.15 : 1 }] }}>🛏️</Text>
+            ),
           }}
         />
         <Tab.Screen
           name="Services"
           component={RoomServiceScreen}
           options={{
-            headerTitle: 'የክፍል ሰርቪሶች (Services)',
+            headerTitle: 'የክፍል ሰርቪስ (Room Service)',
             tabBarLabel: 'ሰርቪስ',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 20 }}>🛎️</Text>,
+            tabBarIcon: ({ focused }) => (
+              <Text style={{ fontSize: 20, transform: [{ scale: focused ? 1.15 : 1 }] }}>🛎️</Text>
+            ),
           }}
         />
         <Tab.Screen
@@ -80,7 +92,9 @@ export default function App() {
           options={{
             headerTitle: 'የእኔ ቆይታ (My Stay)',
             tabBarLabel: 'ቆይታዬ',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 20 }}>🔑</Text>,
+            tabBarIcon: ({ focused }) => (
+              <Text style={{ fontSize: 20, transform: [{ scale: focused ? 1.15 : 1 }] }}>🔑</Text>
+            ),
           }}
         />
         <Tab.Screen
@@ -89,7 +103,9 @@ export default function App() {
           options={{
             headerTitle: 'መገለጫ (My Profile)',
             tabBarLabel: 'መገለጫ',
-            tabBarIcon: ({ color }) => <Text style={{ fontSize: 20 }}>👤</Text>,
+            tabBarIcon: ({ focused }) => (
+              <Text style={{ fontSize: 20, transform: [{ scale: focused ? 1.15 : 1 }] }}>👤</Text>
+            ),
           }}
         />
       </Tab.Navigator>

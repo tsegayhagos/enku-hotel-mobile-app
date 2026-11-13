@@ -4,7 +4,6 @@
     "slug": "enku-hotel-guest",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
       "backgroundColor": "#004758"
@@ -19,6 +18,9 @@
       },
       "package": "com.enku.hotel.guest"
     },
-    "themeColor": "#0ea5a4"
+    "themeColor": "#0ea5a4",
+    "plugins": [
+      "expo-asset"
+    ]
   }
 }

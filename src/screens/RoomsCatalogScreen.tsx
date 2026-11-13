@@ -7,7 +7,7 @@ export default function RoomsCatalogScreen({ navigation }: any) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
   const [bookingModalVisible, setBookingModalVisible] = useState(false);
-  const [guestName, setGuestName] = useState('Abebe Kebede');
+  const [guestName, setGuestName] = useState('Tsegay Hagos');
   const [guestPhone, setGuestPhone] = useState('+251 91 123 4567');
   const [paymentMethod, setPaymentMethod] = useState<'Telebirr' | 'CBE'>('Telebirr');
 
@@ -34,9 +34,10 @@ export default function RoomsCatalogScreen({ navigation }: any) {
             key={cat}
             style={[styles.filterPill, selectedCategory === cat && styles.filterPillActive]}
             onPress={() => setSelectedCategory(cat)}
+            activeOpacity={0.8}
           >
             <Text style={[styles.filterText, selectedCategory === cat && styles.filterTextActive]}>
-              {cat === 'All' ? 'ሁሉም ክፍሎች' : cat}
+              {cat === 'All' ? '✨ ሁሉም ክፍሎች' : cat}
             </Text>
           </TouchableOpacity>
         ))}
@@ -47,10 +48,13 @@ export default function RoomsCatalogScreen({ navigation }: any) {
           <View key={room.id} style={styles.card}>
             {/* Room Visual Emoji Header */}
             <View style={styles.cardHeader}>
-              <Text style={{ fontSize: 44 }}>{room.emoji}</Text>
+              <Text style={{ fontSize: 48 }}>{room.emoji}</Text>
+              <View style={styles.ratingTag}>
+                <Text style={styles.ratingTagText}>⭐ 4.96 VIP</Text>
+              </View>
               <View style={styles.priceTag}>
                 <Text style={styles.priceValue}>{room.base_price.toLocaleString()}</Text>
-                <Text style={styles.priceUnit}> ብር / ምሽት</Text>
+                <Text style={styles.priceUnit}> ETB / ምሽት</Text>
               </View>
             </View>
 
@@ -71,8 +75,9 @@ export default function RoomsCatalogScreen({ navigation }: any) {
             <TouchableOpacity
               style={styles.bookButton}
               onPress={() => handleBook(room)}
+              activeOpacity={0.85}
             >
-              <Text style={styles.bookButtonText}>አሁን ያስይዙ (Book This Room)</Text>
+              <Text style={styles.bookButtonText}>አሁን ያስይዙ (Reserve Room) →</Text>
             </TouchableOpacity>
           </View>
         ))}
@@ -83,7 +88,7 @@ export default function RoomsCatalogScreen({ navigation }: any) {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>ቦታ ማስያዣ (Instant Booking)</Text>
+              <Text style={styles.modalTitle}>✨ ቦታ ማስያዣ (Instant Reservation)</Text>
               <TouchableOpacity onPress={() => setBookingModalVisible(false)}>
                 <Text style={styles.closeBtn}>✕</Text>
               </TouchableOpacity>
@@ -92,13 +97,13 @@ export default function RoomsCatalogScreen({ navigation }: any) {
             {selectedRoom && (
               <View style={styles.summaryCard}>
                 <Text style={styles.summaryTitle}>{selectedRoom.name}</Text>
-                <Text style={styles.summarySub}>ቆይታ: 3 ምሽቶች • 2 እንግዶች</Text>
-                <Text style={styles.summaryPrice}>ድምር: {(selectedRoom.base_price * 3).toLocaleString()} ብር</Text>
+                <Text style={styles.summarySub}>ቆይታ: 3 ምሽቶች • 2 እንግዶች • ቁርስ በነፃ</Text>
+                <Text style={styles.summaryPrice}>ጠቅላላ ሂሳብ: {(selectedRoom.base_price * 3).toLocaleString()} ETB</Text>
               </View>
             )}
 
             <View style={styles.formGroup}>
-              <Text style={styles.label}>ሙሉ ስም (Full Name)</Text>
+              <Text style={styles.label}>የእንግዳ ሙሉ ስም (Guest Full Name)</Text>
               <TextInput
                 style={styles.input}
                 value={guestName}
@@ -108,7 +113,7 @@ export default function RoomsCatalogScreen({ navigation }: any) {
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={styles.label}>ስልክ ቁጥር (Phone Number)</Text>
+              <Text style={styles.label}>ስልክ ቁጥር (Mobile / Contact Number)</Text>
               <TextInput
                 style={styles.input}
                 value={guestPhone}
@@ -119,22 +124,24 @@ export default function RoomsCatalogScreen({ navigation }: any) {
             </View>
 
             <View style={styles.formGroup}>
-              <Text style={styles.label}>የመክፈያ መንገድ ይምረጡ</Text>
+              <Text style={styles.label}>የክፍያ መንገድ ይምረጡ (Select Payment)</Text>
               <View style={styles.payGrid}>
                 <TouchableOpacity
-                  style={[styles.payOption, paymentMethod === 'Telebirr' && styles.payOptionActive]}
+                  style={[styles.payOption, paymentMethod === 'Telebirr' && styles.payOptionActiveTele]}
                   onPress={() => setPaymentMethod('Telebirr')}
+                  activeOpacity={0.8}
                 >
-                  <Text style={[styles.payOptionText, paymentMethod === 'Telebirr' && styles.payOptionTextActive]}>
-                    📱 Telebirr
+                  <Text style={[styles.payOptionText, paymentMethod === 'Telebirr' && styles.payOptionTextActiveTele]}>
+                    📱 Telebirr (ቴሌብር)
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={[styles.payOption, paymentMethod === 'CBE' && styles.payOptionActive]}
+                  style={[styles.payOption, paymentMethod === 'CBE' && styles.payOptionActiveCbe]}
                   onPress={() => setPaymentMethod('CBE')}
+                  activeOpacity={0.8}
                 >
-                  <Text style={[styles.payOptionText, paymentMethod === 'CBE' && styles.payOptionTextActive]}>
-                    🏦 CBE Birr
+                  <Text style={[styles.payOptionText, paymentMethod === 'CBE' && styles.payOptionTextActiveCbe]}>
+                    🏦 CBE Birr (ሲቢኢ)
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -143,8 +150,9 @@ export default function RoomsCatalogScreen({ navigation }: any) {
             <TouchableOpacity
               style={styles.confirmButton}
               onPress={confirmReservation}
+              activeOpacity={0.85}
             >
-              <Text style={styles.confirmButtonText}>ክፍያ አረጋግጥ እና ቫውቸር አውጣ</Text>
+              <Text style={styles.confirmButtonText}>ክፍያ አረጋግጥ እና ቫውቸር አውጣ (Confirm & Pay)</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -154,44 +162,272 @@ export default function RoomsCatalogScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
-  filterBar: { flexDirection: 'row', padding: 14, gap: 8 },
-  filterPill: { paddingHorizontal: 16, paddingVertical: 8, borderRadius: 20, backgroundColor: COLORS.surface, borderWidth: 1, borderColor: COLORS.border },
-  filterPillActive: { backgroundColor: COLORS.primaryLight, borderColor: COLORS.primaryLight },
-  filterText: { fontSize: 12, color: COLORS.textMuted, fontWeight: '600' },
-  filterTextActive: { color: '#000', fontWeight: '800' },
-  list: { padding: 16, paddingBottom: 40 },
-  card: { backgroundColor: COLORS.surface, borderRadius: 24, padding: 18, marginBottom: 16, borderWidth: 1, borderColor: COLORS.border },
-  cardHeader: { height: 110, backgroundColor: COLORS.surfaceLight, borderRadius: 16, justifyContent: 'center', alignItems: 'center', marginBottom: 14 },
-  priceTag: { position: 'absolute', bottom: 10, right: 12, flexDirection: 'row', alignItems: 'baseline', backgroundColor: 'rgba(0,0,0,0.6)', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10 },
-  priceValue: { fontSize: 16, color: COLORS.primaryLight, fontWeight: '800' },
-  priceUnit: { fontSize: 10, color: COLORS.textMuted },
-  roomTitle: { fontSize: 16, color: COLORS.text, fontWeight: '800', marginBottom: 4 },
-  roomDescription: { fontSize: 12, color: COLORS.textMuted, lineHeight: 18, marginBottom: 12 },
-  amenitiesWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 16 },
-  amenityBadge: { backgroundColor: 'rgba(14, 165, 164, 0.1)', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8, borderWidth: 1, borderColor: 'rgba(14, 165, 164, 0.2)' },
-  amenityText: { fontSize: 10, color: COLORS.primaryLight, fontWeight: '600' },
-  bookButton: { backgroundColor: COLORS.primary, paddingVertical: 12, borderRadius: 14, alignItems: 'center' },
-  bookButtonText: { color: '#fff', fontSize: 13, fontWeight: '700' },
+  container: { 
+    flex: 1, 
+    backgroundColor: COLORS.background 
+  },
+  filterBar: { 
+    flexDirection: 'row', 
+    padding: 16, 
+    gap: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.borderLight 
+  },
+  filterPill: { 
+    paddingHorizontal: 16, 
+    paddingVertical: 9, 
+    borderRadius: 22, 
+    backgroundColor: COLORS.surface, 
+    borderWidth: 1, 
+    borderColor: COLORS.border 
+  },
+  filterPillActive: { 
+    backgroundColor: COLORS.gold, 
+    borderColor: COLORS.gold 
+  },
+  filterText: { 
+    fontSize: 12, 
+    color: COLORS.textMuted, 
+    fontWeight: '700' 
+  },
+  filterTextActive: { 
+    color: '#070B11', 
+    fontWeight: '800' 
+  },
+  list: { 
+    padding: 18, 
+    paddingBottom: 48 
+  },
+  card: { 
+    backgroundColor: COLORS.surface, 
+    borderRadius: 26, 
+    padding: 18, 
+    marginBottom: 18, 
+    borderWidth: 1, 
+    borderColor: COLORS.border,
+    shadowColor: '#000',
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+    elevation: 5
+  },
+  cardHeader: { 
+    height: 125, 
+    backgroundColor: COLORS.surfaceLight, 
+    borderRadius: 20, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: COLORS.borderLight,
+    position: 'relative'
+  },
+  ratingTag: {
+    position: 'absolute',
+    top: 12,
+    left: 12,
+    backgroundColor: 'rgba(7, 11, 17, 0.85)',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(212, 175, 55, 0.3)'
+  },
+  ratingTagText: {
+    fontSize: 10,
+    color: COLORS.gold,
+    fontWeight: '800'
+  },
+  priceTag: { 
+    position: 'absolute', 
+    bottom: 12, 
+    right: 12, 
+    flexDirection: 'row', 
+    alignItems: 'baseline', 
+    backgroundColor: 'rgba(7, 11, 17, 0.9)', 
+    paddingHorizontal: 12, 
+    paddingVertical: 6, 
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.borderGold
+  },
+  priceValue: { 
+    fontSize: 17, 
+    color: COLORS.gold, 
+    fontWeight: '900' 
+  },
+  priceUnit: { 
+    fontSize: 10, 
+    color: COLORS.textMuted,
+    fontWeight: '600'
+  },
+  roomTitle: { 
+    fontSize: 17, 
+    color: COLORS.text, 
+    fontWeight: '800', 
+    marginBottom: 6,
+    letterSpacing: -0.2
+  },
+  roomDescription: { 
+    fontSize: 12.5, 
+    color: COLORS.textMuted, 
+    lineHeight: 18, 
+    marginBottom: 14 
+  },
+  amenitiesWrap: { 
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    gap: 7, 
+    marginBottom: 18 
+  },
+  amenityBadge: { 
+    backgroundColor: 'rgba(14, 165, 164, 0.1)', 
+    paddingHorizontal: 9, 
+    paddingVertical: 5, 
+    borderRadius: 8, 
+    borderWidth: 1, 
+    borderColor: 'rgba(14, 165, 164, 0.25)' 
+  },
+  amenityText: { 
+    fontSize: 11, 
+    color: COLORS.primaryLight, 
+    fontWeight: '700' 
+  },
+  bookButton: { 
+    backgroundColor: COLORS.primaryLight, 
+    paddingVertical: 14, 
+    borderRadius: 16, 
+    alignItems: 'center',
+    shadowColor: COLORS.primaryLight,
+    shadowOpacity: 0.3,
+    shadowRadius: 8
+  },
+  bookButtonText: { 
+    color: '#070B11', 
+    fontSize: 13, 
+    fontWeight: '800' 
+  },
 
   // Modal styles
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' },
-  modalContent: { backgroundColor: COLORS.surface, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 22, paddingBottom: 36, borderWidth: 1, borderColor: COLORS.border },
-  modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
-  modalTitle: { fontSize: 17, color: COLORS.text, fontWeight: '800' },
-  closeBtn: { fontSize: 20, color: COLORS.textMuted, padding: 4 },
-  summaryCard: { backgroundColor: COLORS.surfaceLight, borderRadius: 16, padding: 14, marginBottom: 16, borderWidth: 1, borderColor: COLORS.border },
-  summaryTitle: { fontSize: 15, color: COLORS.primaryLight, fontWeight: '800' },
-  summarySub: { fontSize: 11, color: COLORS.textMuted, marginTop: 2 },
-  summaryPrice: { fontSize: 14, color: COLORS.accent, fontWeight: '800', marginTop: 6 },
-  formGroup: { marginBottom: 14 },
-  label: { fontSize: 11, color: COLORS.textMuted, marginBottom: 6 },
-  input: { backgroundColor: COLORS.background, borderRadius: 12, padding: 12, color: '#fff', fontSize: 13, borderWidth: 1, borderColor: COLORS.border },
-  payGrid: { flexDirection: 'row', gap: 10 },
-  payOption: { flex: 1, backgroundColor: COLORS.background, padding: 12, borderRadius: 12, alignItems: 'center', borderWidth: 1, borderColor: COLORS.border },
-  payOptionActive: { backgroundColor: 'rgba(14, 165, 164, 0.15)', borderColor: COLORS.primaryLight },
-  payOptionText: { fontSize: 12, color: COLORS.textMuted, fontWeight: '600' },
-  payOptionTextActive: { color: COLORS.primaryLight, fontWeight: '800' },
-  confirmButton: { backgroundColor: COLORS.primaryLight, paddingVertical: 14, borderRadius: 14, alignItems: 'center', marginTop: 10 },
-  confirmButtonText: { color: '#000', fontSize: 13, fontWeight: '800' },
+  modalOverlay: { 
+    flex: 1, 
+    backgroundColor: 'rgba(0, 0, 0, 0.88)', 
+    justifyContent: 'flex-end' 
+  },
+  modalContent: { 
+    backgroundColor: COLORS.surface, 
+    borderTopLeftRadius: 32, 
+    borderTopRightRadius: 32, 
+    padding: 24, 
+    paddingBottom: 40, 
+    borderWidth: 1, 
+    borderColor: COLORS.borderGold,
+    shadowColor: '#000',
+    shadowOpacity: 0.5,
+    shadowRadius: 20
+  },
+  modalHeader: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginBottom: 18 
+  },
+  modalTitle: { 
+    fontSize: 18, 
+    color: COLORS.text, 
+    fontWeight: '800' 
+  },
+  closeBtn: { 
+    fontSize: 22, 
+    color: COLORS.textMuted, 
+    padding: 4 
+  },
+  summaryCard: { 
+    backgroundColor: COLORS.surfaceLight, 
+    borderRadius: 18, 
+    padding: 16, 
+    marginBottom: 18, 
+    borderWidth: 1, 
+    borderColor: COLORS.border 
+  },
+  summaryTitle: { 
+    fontSize: 16, 
+    color: COLORS.text, 
+    fontWeight: '800' 
+  },
+  summarySub: { 
+    fontSize: 11.5, 
+    color: COLORS.textMuted, 
+    marginTop: 4 
+  },
+  summaryPrice: { 
+    fontSize: 15, 
+    color: COLORS.gold, 
+    fontWeight: '900', 
+    marginTop: 8 
+  },
+  formGroup: { marginBottom: 16 },
+  label: { 
+    fontSize: 11.5, 
+    color: COLORS.textMuted, 
+    fontWeight: '600',
+    marginBottom: 7 
+  },
+  input: { 
+    backgroundColor: COLORS.background, 
+    borderRadius: 14, 
+    padding: 13, 
+    color: '#FFF', 
+    fontSize: 13.5, 
+    borderWidth: 1, 
+    borderColor: COLORS.border 
+  },
+  payGrid: { 
+    flexDirection: 'row', 
+    gap: 12 
+  },
+  payOption: { 
+    flex: 1, 
+    backgroundColor: COLORS.background, 
+    padding: 14, 
+    borderRadius: 14, 
+    alignItems: 'center', 
+    borderWidth: 1.5, 
+    borderColor: COLORS.border 
+  },
+  payOptionActiveTele: { 
+    backgroundColor: 'rgba(14, 165, 164, 0.15)', 
+    borderColor: COLORS.primaryLight 
+  },
+  payOptionActiveCbe: { 
+    backgroundColor: 'rgba(212, 175, 55, 0.15)', 
+    borderColor: COLORS.gold 
+  },
+  payOptionText: { 
+    fontSize: 12.5, 
+    color: COLORS.textMuted, 
+    fontWeight: '700' 
+  },
+  payOptionTextActiveTele: { 
+    color: COLORS.primaryLight, 
+    fontWeight: '800' 
+  },
+  payOptionTextActiveCbe: { 
+    color: COLORS.gold, 
+    fontWeight: '800' 
+  },
+  confirmButton: { 
+    backgroundColor: COLORS.gold, 
+    paddingVertical: 15, 
+    borderRadius: 16, 
+    alignItems: 'center', 
+    marginTop: 10,
+    shadowColor: COLORS.gold,
+    shadowOpacity: 0.3,
+    shadowRadius: 10
+  },
+  confirmButtonText: { 
+    color: '#070B11', 
+    fontSize: 13.5, 
+    fontWeight: '900' 
+  },
 });
